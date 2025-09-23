@@ -1,9 +1,26 @@
-int base1 = 26, base2 = 27, mod = 1e9 + 7;
-
+int base1 = 26, base2 = 27, mod;
+ 
+bool isprime(int num){
+    for(int i = 2;i * i <= num;i++){
+        if(num % i == 0) return false;
+    }
+    return true;
+}
+ 
 inline int add(int x,int y){x += y;if(x >= mod) x -= mod;return x;}
 inline int sub(int x,int y){x -= y;if(x < 0) x += mod;return x;}
 inline int mul(int x,int y){return (long long)x * y % mod;}
-
+ 
+void init(){
+    vector< int > v;
+    int val = 1e9 + 1e2;
+    while((int)v.size() < 50){
+        if(isprime(val)) v.push_back(val);
+        val--;
+    }
+    mod = v[getrand(0 , 49)];
+}
+ 
 struct Hash{
     vector< pair<int,int> > pow , hashes ;
     string s;
@@ -29,15 +46,15 @@ struct Hash{
  
         return { hash1 , hash2 } ;
     }
-
+ 
     bool equal(Hash &other, int l1,int r1,int l2,int r2){
         if(r1 - l1 != r2 - l2) return false;
         return get(l1 , r1) == other.get(l2 , r2);
     }
-
+ 
     bool less(Hash &other,int l1,int r1,int l2,int r2){
         int low = 0 , high = min(r2 - l2, r1 - l1) , res = -1 , mid;
-
+ 
         while(high >= low){
             mid = ((low + high) >> 1);
             if(get(l1 , l1 + mid) == other.get(l2 , l2 + mid))
