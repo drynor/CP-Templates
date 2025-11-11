@@ -25,6 +25,7 @@ private:
     int mostFreqLen;
     long long mostFreqCount;
     vector<int> palindromicSuffixesPerPosition;
+    vector<int> longestPalindromeEndAt;
 
     /**
      * @brief Extends the tree with the character at s[pos].
@@ -75,10 +76,6 @@ private:
     }
 
 public:
-    /**
-     * @brief Constructs the Palindromic Tree and computes all properties.
-     * @param _s The input string.
-     */
     PalindromicTree(string _s) {
         s = _s;
         int n = s.size();
@@ -95,6 +92,7 @@ public:
         mostFreqLen = 0;
         mostFreqCount = 0;
         palindromicSuffixesPerPosition.resize(n);
+        longestPalindromeEndAt.resize(n); // <-- NEW: Resize the new vector
 
         // --- 1. Build the tree ---
         for (int i = 0; i < n; i++) {
@@ -102,6 +100,9 @@ public:
             
             // Store count of palindromic suffixes ending at i
             palindromicSuffixesPerPosition[i] = t[last].cnt;
+
+            // Store the length of the longest palindrome ending at i
+            longestPalindromeEndAt[i] = t[last].len; // <-- NEW: Store the required length
 
             // Update longest palindrome found *so far*
             if (t[last].len > longestLen) {
@@ -184,8 +185,16 @@ public:
     vector<int> getPalindromicSuffixCounts() {
         return palindromicSuffixesPerPosition;
     }
+    
+    /**
+     * @brief Gets a vector where v[i] is the length of the *longest*
+     * palindromic substring that *ends* at index i.
+     * @return A vector<int> of size N.
+     */
+    vector<int> getLongestPalindromeLengthAtEachPosition() { // <-- NEW
+        return longestPalindromeEndAt;
+    }
 
-    // --- NEW METHOD ---
     /**
      * @brief Retrieves all distinct palindromic substrings.
      * @return A vector of strings, each being a unique palindrome.
