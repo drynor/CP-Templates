@@ -7,22 +7,18 @@
 template <class T> struct BIT {
     int n;
     vector<T> bit;
-
     BIT(int sz) {
         n = sz + 1;
         bit.assign(n, 0);
     }
-    
     T query(int r) {
         T v = 0;
         for (int i = r + 1; i > 0; i -= (i & -i)) v += bit[i];
         return v;
     }
-
     T query(int l, int r) {
         return query(r) - query(l - 1);
     }
-
     void update(int j, T v) {
         for (int i = j + 1; i < n; i += (i & -i)) bit[i] += v;
     }
@@ -36,7 +32,6 @@ template <class T> struct BIT {
 template <class T> struct BIT {
     int n;
     vector<T> bit;
-
     BIT(int sz) {
         n = sz + 1;
         bit.assign(n, 0);
