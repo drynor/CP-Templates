@@ -1,20 +1,16 @@
 struct SegTree2d {
-    int n , m;
+    int n, m;
     vector<vector<int>> seg;
-
     int def() const {
         return 0;
     }
-
     int merge(int a, int b) const {
         return a + b;
     }
-
     SegTree2d(int tn, int tm){
-        n = tn; m = tm;
+        n = tn, m = tm;
         seg = vector<vector<int>>(2*n, vector<int>(2*m, def()));
     }
-
     int query(int x1, int y1, int x2, int y2) const {
         int ans = def();
         int y3 = y1 + m, y4 = y2 + m;
@@ -28,7 +24,6 @@ struct SegTree2d {
         }
         return ans;
     }
-
     void update(int x, int y, int val){
         int y2 = y += m;
         for(x += n; x; x >>= 1, y = y2){
