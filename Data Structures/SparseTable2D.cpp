@@ -19,7 +19,6 @@ struct ST2D {
             }
         }
     }
-
     int query(int r, int c, int sz) {
         int k = __lg(sz);
         int d = sz - (1 << k);
