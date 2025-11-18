@@ -1,3 +1,23 @@
+struct Seg {
+    int n, def = 4e18;
+    vector<int> tree;
+    Seg(int sz) {
+        n = sz; tree.assign(2 * n, def);
+    }
+    void update(int i, int x) {
+        for (tree[i += n] = x; i > 1; i >>= 1) 
+            tree[i >> 1] = min(tree[i], tree[i ^ 1]);
+    }
+    int query(int l, int r) {
+        int res = def;
+        for (l += n, r += n + 1; l < r; l >>= 1, r >>= 1) {
+            if (l & 1) res = min(res, tree[l++]);
+            if (r & 1) res = min(res, tree[--r]);
+        }
+        return res;
+    }
+};
+
 template<typename Node, typename Update>
 struct SegTree {
     vector<Node> tree;
