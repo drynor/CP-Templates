@@ -20,7 +20,7 @@ struct Manacher {
 		}
 	}
 	bool is_palindrome(int l, int r) {
-	int mid = (l + r + 1) / 2, len = r - l + 1;
-	return 2 * p[len % 2][mid] + len % 2 >= len;
+		int mid = (l + r + 1) / 2, len = r - l + 1;
+		return 2 * p[len % 2][mid] + len % 2 >= len;
 	}
 };
