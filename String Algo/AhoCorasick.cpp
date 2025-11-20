@@ -1,15 +1,11 @@
 struct AC {
     int N, P, A = 26;
-
     vector<vector<int>> next;
     vector<int> link;
-
     vector<vector<int>> g;
     // vector<string> d_str;
-
     AC() {
-        N = P = 0;
-        node();
+        N = P = 0; node();
     }
     int node() {
         next.emplace_back(A, 0);
@@ -31,26 +27,20 @@ struct AC {
         return P++;
     }
     void compute() {
-        queue<int> q;
-        q.push(0);
-        
+        queue<int> q; q.push(0);
         while (!q.empty()) {
             int u = q.front(); q.pop();     
             for (int c = 0; c < A; ++c) {
                 int v = next[u][c];
-                if (!v) {
-                    next[u][c] = next[link[u]][c];
-                } else {
+                if (!v) next[u][c] = next[link[u]][c];
+                else {
                     link[v] = (u ? next[link[u]][c] : 0);                    
                     q.push(v);
                 }
             }
-        }
-        // g.resize(N);
-        // for (int i = 1; i < N; i++) g[link[i]].push_back(i);
+        } // g.resize(N); // for (int i = 1; i < N; i++) g[link[i]].push_back(i);
     }
     int advance(int u, char c) {
-        u = next[u][c - 'a'];
-        return u;
+        return next[u][c - 'a'];
     }
 };
