@@ -1,4 +1,4 @@
-struct SegTree2d {
+struct Seg2d {
     int n, m;
     vector<vector<int>> seg;
     int def() const {
@@ -7,7 +7,7 @@ struct SegTree2d {
     int merge(int a, int b) const {
         return a + b;
     }
-    SegTree2d(int tn, int tm){
+    Seg2d(int tn, int tm){
         n = tn, m = tm;
         seg = vector<vector<int>>(2*n, vector<int>(2*m, def()));
     }
