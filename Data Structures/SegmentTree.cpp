@@ -11,7 +11,6 @@ struct seg {
         int m = (s + e) / 2;
         if(qi <= m) upd(s, m, 2 * i, qi, u);
         else        upd(m + 1, e, 2 * i + 1, qi, u);
-
         t[i].merge(t[2 * i], t[2 * i + 1]);
     }
     void upd(int i, int v) {
@@ -22,9 +21,10 @@ struct seg {
         if (s > r || e < l) return node();
         if (s >= l && e <= r) return t[i];
         int m = (s + e) / 2;
-        node ln = qry(s, m, 2 * i, l, r);
-        node rn = qry(m + 1, e, 2 * i + 1, l, r);
-        node ans; ans.merge(ln, rn);
+        node ln, rn, ans;
+        ln = qry(s, m, 2 * i, l, r);
+        rn = qry(m + 1, e, 2 * i + 1, l, r);
+        ans.merge(ln, rn);
         return ans;
     }
     node qry(int l, int r) {
@@ -33,16 +33,19 @@ struct seg {
 };
 struct node1 {
     int mn = 1e18;
-    void merge(node1 &l, node1 &r){
+    
+    void merge(node1 &l, node1 &r) {
         mn = min(l.mn, r.mn);
     }
 };
-struct update1{
+struct update1 {
     int nw;
-    update1(int x){
+    
+    update1(int x) {
         nw = x;
     }
-    void apply(node1 &a){
+    
+    void apply(node1 &a) {
         a.mn = nw;
     }
 };
