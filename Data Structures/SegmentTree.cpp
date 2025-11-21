@@ -1,107 +1,70 @@
-struct Seg {
-    int n, def = 4e18;
-    vector<int> tree;
-    Seg(int sz) {
-        n = sz; tree.assign(2 * n, def);
+template<typename node, typename update>
+struct seg {
+    int n; vector<node> t;
+    seg (int tn) {
+        n = tn; t.resize(4 * n);
     }
-    void update(int i, int x) {
-        for (tree[i += n] = x; i > 1; i >>= 1) 
-            tree[i >> 1] = min(tree[i], tree[i ^ 1]);
-    }
-    int query(int l, int r) {
-        int res = def;
-        for (l += n, r += n + 1; l < r; l >>= 1, r >>= 1) {
-            if (l & 1) res = min(res, tree[l++]);
-            if (r & 1) res = min(res, tree[--r]);
+    void upd(int s, int e, int i, int qi, update &u) {
+        if (s == e) {
+            u.apply(t[i]); return;
         }
-        return res;
-    }
-};
+        int m = (s + e) / 2;
+        if(qi <= m) upd(s, m, 2 * i, qi, u);
+        else        upd(m + 1, e, 2 * i + 1, qi, u);
 
-template<typename Node, typename Update>
-struct SegTree {
-    vector<Node> tree;
-    vector<int> arr;
-    int n;
-    
-    SegTree(int a_len, vector<int> &a) {
-        arr = a;
-        n = a_len;
-        tree.resize(4 * n);
-        build(0, n - 1, 1);
+        t[i].merge(t[2 * i], t[2 * i + 1]);
     }
-    
-    void build(int start, int end, int index) {
-        if (start == end) {
-            tree[index] = Node(arr[start]);
-            return;
-        }
-        int mid = (start + end) / 2;
-        build(start, mid, 2 * index);
-        build(mid + 1, end, 2 * index + 1);
-        tree[index].merge(tree[2 * index], tree[2 * index + 1]);
+    void upd(int i, int v) {
+        update nw = update(v);
+        upd(0, n - 1, 1, i, nw);
     }
-    
-    void update(int start, int end, int index, int query_index, Update &u) {
-        if (start == end) {
-            u.apply(tree[index]);
-            return;
-        }
-        int mid = (start + end) / 2;
-        if (query_index <= mid)
-            update(start, mid, 2 * index, query_index, u);
-        else
-            update(mid + 1, end, 2 * index + 1, query_index, u);
-        tree[index].merge(tree[2 * index], tree[2 * index + 1]);
-    }
-    
-    Node query(int start, int end, int index, int left, int right) {
-        if (start > right || end < left)
-            return Node();
-        if (start >= left && end <= right)
-            return tree[index];
-        int mid = (start + end) / 2;
-        Node l = query(start, mid, 2 * index, left, right);
-        Node r = query(mid + 1, end, 2 * index + 1, left, right);
-        Node ans;
-        ans.merge(l, r);
+    node qry(int s, int e, int i, int l, int r) {
+        if (s > r || e < l) return node();
+        if (s >= l && e <= r) return t[i];
+        int m = (s + e) / 2;
+        node ln = qry(s, m, 2 * i, l, r);
+        node rn = qry(m + 1, e, 2 * i + 1, l, r);
+        node ans; ans.merge(ln, rn);
         return ans;
     }
-    
-    void make_update(int arrIndex, int val) {
-        Update new_update = Update(val);
-        update(0, n - 1, 1, arrIndex, new_update);
+    node qry(int l, int r) {
+        return qry(0, n - 1, 1, l, r);
     }
-    
-    Node make_query(int left, int right) {
-        return query(0, n - 1, 1, left, right);
+};
+struct node1 {
+    int mn = 1e18;
+    void merge(node1 &l, node1 &r){
+        mn = min(l.mn, r.mn);
+    }
+};
+struct update1{
+    int nw;
+    update1(int x){
+        nw = x;
+    }
+    void apply(node1 &a){
+        a.mn = nw;
     }
 };
 
-struct Node1 {
-    int mx;
-    
-    Node1() {
-        mx = 0;
+struct seg {
+    int n; vector<int> t;
+    seg(int tn){
+        n = tn; t.resize(4 * n, 1e18);
     }
-    
-    Node1(int val) {
-        mx = val;
+    void upd(int s, int e, int i, int qi, int nw) {
+        if (s == e) {
+            t[i] = nw; return;
+        }
+        int m = (s + e) / 2;
+        if(qi <= m) upd(s, m, 2 * i, qi, nw);
+        else        upd(m + 1, e, 2 * i + 1, qi, nw);
+        t[i] = min(t[2 * i], t[2 * i + 1]);
     }
-    
-    void merge(Node1 &l, Node1 &r) {
-        mx = max(l.mx, r.mx);
-    }
-};
- 
-struct Update1 {
-    int nw;
-    
-    Update1(int x) {
-        nw = x;
-    }
-    
-    void apply(Node1 &a) {
-        a.mx = max(a.mx, nw);
+    int qry(int s, int e, int i, int l, int r) {
+        if (s > r || e < l) return 1e18;
+        if (s >= l && e <= r) return t[i];
+        int m = (s + e) / 2;
+        return min(qry(s, m, 2 * i, l, r), qry(m + 1, e, 2 * i + 1, l, r));
     }
 };
