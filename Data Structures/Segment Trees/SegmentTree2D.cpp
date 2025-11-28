@@ -1,38 +1,38 @@
-struct Seg2d {
+struct seg {
     int n, m;
-    vector<vector<int>> seg;
-    int def() const {
+    vector<vector<int>> t;
+    int def() {
         return 0;
     }
-    int merge(int a, int b) const {
+    int merge(int a, int b) {
         return a + b;
     }
-    Seg2d(int tn, int tm){
+    seg(int tn, int tm){
         n = tn, m = tm;
-        seg = vector<vector<int>>(2*n, vector<int>(2*m, def()));
+        t = vector<vector<int>>(2*n, vector<int>(2*m, def()));
     }
-    int query(int x1, int y1, int x2, int y2) const {
+    int qry(int x1, int y1, int x2, int y2) {
         int ans = def();
         int y3 = y1 + m, y4 = y2 + m;
         for (x1 += n, x2 += n; x1 <= x2; ++x1 /= 2, --x2 /= 2){
             for(y1 = y3, y2 = y4; y1 <= y2; ++y1 /= 2, --y2 /= 2){
-                if((x1&1) and (y1&1))  ans = merge(ans, seg[x1][y1]);
-                if((x1&1) and !(y2&1)) ans = merge(ans, seg[x1][y2]);
-                if(!(x2&1) and (y1&1)) ans = merge(ans, seg[x2][y1]);
-                if(!(x2&1) and !(y2&1))ans = merge(ans, seg[x2][y2]);
+                if((x1&1) and (y1&1))  ans = merge(ans, t[x1][y1]);
+                if((x1&1) and !(y2&1)) ans = merge(ans, t[x1][y2]);
+                if(!(x2&1) and (y1&1)) ans = merge(ans, t[x2][y1]);
+                if(!(x2&1) and !(y2&1))ans = merge(ans, t[x2][y2]);
             }
         }
         return ans;
     }
-    void update(int x, int y, int val){
+    void upd(int x, int y, int val){
         int y2 = y += m;
         for(x += n; x; x >>= 1, y = y2){
-            if(x >= n) seg[x][y] = val;
+            if(x >= n) t[x][y] = val;
             else{
-                seg[x][y] = merge(seg[2*x][y], seg[2*x+1][y]);
+                t[x][y] = merge(t[2*x][y], t[2*x+1][y]);
             }
             while(y >>= 1){
-                seg[x][y] = merge(seg[x][2*y], seg[x][2*y+1]);
+                t[x][y] = merge(t[x][2*y], t[x][2*y+1]);
             }
         }
     }
