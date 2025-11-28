@@ -1,8 +1,8 @@
-struct lazyseg {
+struct seg {
     vector<int> t, us;
     vector<bool> lz;
     int n, def = 0;
-    lazyseg(int tn) {
+    seg(int tn) {
         n = tn;
         t.resize(n * 4, def);
         lz.resize(n * 4, false);
