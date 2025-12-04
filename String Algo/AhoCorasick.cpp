@@ -1,36 +1,35 @@
 struct AC {
-    int N, P, A = 26;
-    vector<vector<int>> next;
+    int N;
+    vector<vector<int>> next, g;
     vector<int> link;
-    vector<vector<int>> g;
-    // vector<string> d_str;
+    // vector<string> str;
     AC() {
-        N = P = 0; node();
+        N = 0; node();
     }
     int node() {
-        next.emplace_back(A, 0);
+        next.emplace_back(26, 0);
         link.emplace_back(0);
-        // d_str.emplace_back("");
+        // str.emplace_back("");
         return N++;
     }
-    int add_pattern(const string& T) {
+    void add(string s) {
         int u = 0;
-        for (char c : T) {
-            int idx = c - 'a';
-            if (!next[u][idx]) {
+        for (char c : s) {
+            int i = c - 'a';
+            if (!next[u][i]) {
                 int v = node();
-                // d_str[v] = d_str[u] + c;
-                next[u][idx] = v;
+                // str[v] = str[u] + c;
+                next[u][i] = v;
             }
-            u = next[u][idx];
+            u = next[u][i];
         }
-        return P++;
+        return;
     }
     void compute() {
         queue<int> q; q.push(0);
         while (!q.empty()) {
             int u = q.front(); q.pop();     
-            for (int c = 0; c < A; ++c) {
+            for (int c = 0; c < 26; c++) {
                 int v = next[u][c];
                 if (!v) next[u][c] = next[link[u]][c];
                 else {
@@ -40,7 +39,7 @@ struct AC {
             }
         } // g.resize(N); // for (int i = 1; i < N; i++) g[link[i]].push_back(i);
     }
-    int advance(int u, char c) {
+    int adv(int u, char c) {
         return next[u][c - 'a'];
     }
 };
