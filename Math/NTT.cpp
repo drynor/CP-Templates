@@ -1,3 +1,4 @@
+// NTT mods 998244353, 167772161, 469762049, 1224736769, 595591169, 645922817, 897581057
 struct NTT {
     static const int MOD = 998244353;
     static int pw(int a, int b) {
