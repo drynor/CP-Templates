@@ -1,17 +1,15 @@
-struct DSU {
+struct dsu {
     vector<int> p, sz;
     int n;
  
-    DSU(int _n) : n(_n) {
+    dsu(int tn) : n(tn) {
         p.resize(n);
         sz.resize(n, 1);
         iota(p.begin(), p.end(), 0);
     }
- 
     inline int get(int x) {
         return (x == p[x] ? x : (p[x] = get(p[x])));
     }
- 
     inline bool unite(int x, int y) {
         x = get(x);
         y = get(y);
@@ -25,19 +23,15 @@ struct DSU {
         }
         return false;
     }
- 
-    inline int size(int x) {
-        return sz[get(x)];
-    }
 };
 
-// DSU WITH ROLLBACK
-struct DSU {
+// dsu WITH ROLLBACK
+struct dsu {
     vector<int> p, sz;
     stack<tuple<int, int, int, int>> history;
     int components;
 
-    DSU(int n){
+    dsu(int n){
         p.resize(n + 1);
         iota(p.begin(), p.end(), 0);
         sz.assign(n + 1, 1);
