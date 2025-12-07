@@ -1,55 +1,55 @@
-struct PST {
-    struct Node {
+struct seg {
+    struct node {
         int sum = 0;
-        Node *left = nullptr, *right = nullptr;
+        node *left = nullptr, *right = nullptr;
 
-        Node(int s){
+        node(int s){
             sum = s;
         }
-        Node(Node* l, Node* r){
+        node(node* l, node* r){
             left = l; right = r;
             if (l) sum += l->sum;
             if (r) sum += r->sum;
         }
     };
     int sz;
-    vector<Node*> roots;
+    vector<node*> roots;
 
-    PST(const vector<int>& a) {
+    seg(const vector<int>& a) {
         sz = a.size();
         roots.pb(build(a, 0, sz - 1));
     }
-    Node* build(const vector<int>& a, int tl, int tr) {
-        if(tl == tr) return new Node(a[tl]);
+    node* build(const vector<int>& a, int tl, int tr) {
+        if(tl == tr) return new node(a[tl]);
 
         int tm = tl + (tr - tl) / 2;
-        return new Node(build(a, tl, tm), build(a, tm + 1, tr));
+        return new node(build(a, tl, tm), build(a, tm + 1, tr));
     }
 
-    int upd(int version, int pos, int val) {
-        Node* root = upd(roots[version], 0, sz - 1, pos, val);
+    int upd(int ver, int pos, int val) {
+        node* root = upd(roots[ver], 0, sz - 1, pos, val);
         roots.pb(root);
         return roots.size() - 1;
     }
-    Node* upd(Node* pn, int tl, int tr, int pos, int val) {
-        if(tl == tr) return new Node(val);
+    node* upd(node* pn, int tl, int tr, int pos, int val) {
+        if(tl == tr) return new node(val);
 
         int tm = tl + (tr - tl) / 2;
         if (pos <= tm) {
-            return new Node(upd(pn->left, tl, tm, pos, val), pn->right);
+            return new node(upd(pn->left, tl, tm, pos, val), pn->right);
         } else {
-            return new Node(pn->left, upd(pn->right, tm + 1, tr, pos, val));
+            return new node(pn->left, upd(pn->right, tm + 1, tr, pos, val));
         }
     }
 
-    int qry(int version, int l, int r) {
-        return qry(roots[version], 0, sz - 1, l, r);
+    int qry(int ver, int l, int r) {
+        return qry(roots[ver], 0, sz - 1, l, r);
     }
-    int qry(Node* node, int tl, int tr, int l, int r) {
-        if (tl > r || tr < l || !node) return 0;
-        if (tl >= l && tr <= r)        return node->sum;
+    int qry(node* cn, int tl, int tr, int l, int r) {
+        if (tl > r || tr < l || !cn) return 0;
+        if (tl >= l && tr <= r)        return cn->sum;
         
         int tm = tl + (tr - tl) / 2;
-        return qry(node->left, tl, tm, l, r) + qry(node->right, tm + 1, tr, l, r);
+        return qry(cn->left, tl, tm, l, r) + qry(cn->right, tm + 1, tr, l, r);
     }
 };
