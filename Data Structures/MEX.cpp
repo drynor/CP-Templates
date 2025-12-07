@@ -1,33 +1,29 @@
-struct MEX {
-    const int N = 1e5 + 5;
+const int N = 1e5 + 5;
+class MEX {
     bitset<N> mex;
-    vector<int> freq;
-
-    MEX() : freq(N, 0) {
+    vector<int> f;
+    MEX() : f(N, 0){
         mex.set();
     }
- 
-    void add(int x) {
+    void add(int x){
         if (x >= N) {
             return;
         }
-        freq[x]++;
-        if (freq[x] == 1) {
+        f[x]++;
+        if (f[x] == 1) {
             mex.reset(x);
         }
     }
- 
-    void remove(int x) {
+    void rmv(int x){
         if (x >= N) {
             return;
         }
-        freq[x]--;
-        if (freq[x] == 0) {
+        f[x]--;
+        if (f[x] == 0) {
             mex.set(x);
         }
     }
- 
-    int get_mex() {
+    int qry(){
         return mex._Find_first();
     }
 };
