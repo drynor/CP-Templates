@@ -1,9 +1,8 @@
-class MEX {
+struct MEX {
     const int N = 1e5 + 5;
     bitset<N> mex;
     vector<int> freq;
- 
-public:
+
     MEX() : freq(N, 0) {
         mex.set();
     }
