@@ -31,7 +31,7 @@ struct basis {
         cnt++;  
         return true;
     }
-    void combine(xor_basis &b2){
+    void combine(basis &b2){
         if(cnt == lg + 1) return;
         for(int i = lg ; i >= 0 ; i--) {
             this->add(b2.b[i]);
