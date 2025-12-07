@@ -1,70 +1,51 @@
-int base1 = 26, base2 = 27, mod;
- 
-bool isprime(int num){
-    for(int i = 2;i * i <= num;i++){
-        if(num % i == 0) return false;
-    }
-    return true;
-}
- 
+int ms[] = {1073741987 , 1073743327 , 1073743427};
+int bs[] = {43, 47, 53, 59, 61};
+
+int b1 = bs[getrand(0 , 1)], b2 = bs[getrand(2, 4)], mod = ms[getrand(0 , 2)];
+
 inline int add(int x,int y){x += y;if(x >= mod) x -= mod;return x;}
 inline int sub(int x,int y){x -= y;if(x < 0) x += mod;return x;}
 inline int mul(int x,int y){return (long long)x * y % mod;}
- 
-void init(){
-    vector< int > v;
-    int val = 1e9 + 1e2;
-    while((int)v.size() < 50){
-        if(isprime(val)) v.push_back(val);
-        val--;
-    }
-    mod = v[getrand(0 , 49)];
-}
- 
+
 struct Hash{
-    vector< pair<int,int> > pow , hashes ;
+    vector<pair<int,int>> pw, h;
     string s;
  
-    void hash (string s){
-        this->s = s;
-        pow.assign( s.size() + 1 , {1,1} ) ;
-        hashes.assign( s.size() + 1, {0,0} ) ;
+    void hash(string ts){
+        s = ts;
+        pw.assign(s.size() + 1, {1,1});
+        h.assign(s.size() + 1, {0,0});
         for(int i = 0 ; i < s.size() ; i ++ ){
-            hashes[i+1].f = add( ( s[i] - 'a' + 1 ), mul( hashes[i].f , base1 )) ;
-            hashes[i+1].s = add( ( s[i] - 'a' + 1 ) , mul( hashes[i].s , base2 )) ;
-            pow[i+1].f = mul( pow[i].f , base1 ) ;
-            pow[i+1].s = mul( pow[i].s , base2 ) ;
+            h[i+1].f = add((s[i] - 'a' + 1), mul(h[i].f, b1));
+            h[i+1].s = add((s[i] - 'a' + 1), mul(h[i].s, b2));
+            pw[i+1].f = mul(pw[i].f, b1);
+            pw[i+1].s = mul(pw[i].s, b2);
         }
- 
     }
  
     pair<int,int> get(int l, int r){
-        int hash1 , hash2 ;
- 
-        hash1 = sub(hashes[r].f , mul(hashes[l-1].f , pow[r-l+1].f )) ;
-        hash2 = sub(hashes[r].s , mul(hashes[l-1].s , pow[r-l+1].s ) ) ;
- 
-        return { hash1 , hash2 } ;
+        int h1, h2;
+        h1 = sub(h[r].f, mul(h[l-1].f, pw[r-l+1].f));
+        h2 = sub(h[r].s, mul(h[l-1].s, pw[r-l+1].s));
+        return {h1, h2};
     }
  
-    bool equal(Hash &other, int l1,int r1,int l2,int r2){
+    bool equal(Hash &o, int l1,int r1,int l2,int r2){
         if(r1 - l1 != r2 - l2) return false;
-        return get(l1 , r1) == other.get(l2 , r2);
+        return get(l1 , r1) == o.get(l2 , r2);
     }
+
+    bool less(Hash &o,int l1,int r1,int l2,int r2){
+        int l = 0, r = min(r2 - l2, r1 - l1), ans = -1, m;
  
-    bool less(Hash &other,int l1,int r1,int l2,int r2){
-        int low = 0 , high = min(r2 - l2, r1 - l1) , res = -1 , mid;
- 
-        while(high >= low){
-            mid = ((low + high) >> 1);
-            if(get(l1 , l1 + mid) == other.get(l2 , l2 + mid))
-                low = mid + 1;
-            else 
-                res = mid , high = mid - 1;
+        while(r >= l){
+            m = ((l + r) >> 1);
+            if(get(l1 , l1 + m) == o.get(l2 , l2 + m)) l = m + 1;
+            else ans = m , r = m - 1;
         }
-        if(res == -1){
+        if(ans == -1){
             return (r1 - l1) < (r2 - l2);
         }
-        return s[l1 + res - 1] < other.s[l2 + res - 1];
+        return s[l1 + ans - 1] < o.s[l2 + ans - 1];
     }
 };
