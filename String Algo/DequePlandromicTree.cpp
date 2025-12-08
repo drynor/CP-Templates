@@ -1,8 +1,8 @@
 template<int alpha>
 struct deque_plandromic_query {
     struct node {
-        std::array<node *, alpha> next;
-        std::array<node *, alpha> dlink;
+        array<node *, alpha> next;
+        array<node *, alpha> dlink;
         node *link, *prev;
         int len, linkcnt, cnt;
  
@@ -24,7 +24,7 @@ struct deque_plandromic_query {
         return it;
     }
  
-    std::vector<node *> to_del;
+    vector<node *> to_del;
  
     void del_node(node *v) {
         node_cnt -= 1;
@@ -34,8 +34,8 @@ struct deque_plandromic_query {
  
     int start_pos, end_pos;
     node *even, *odd;
-    std::deque<int> data;
-    std::deque<node *> presurf, sufsurf;
+    deque<int> data;
+    deque<node *> presurf, sufsurf;
  
     auto &get_data(int pos) {
         assert(start_pos <= pos && pos < end_pos);
