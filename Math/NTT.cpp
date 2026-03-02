@@ -1,4 +1,31 @@
 // NTT mods 998244353, 167772161, 469762049, 1224736769, 595591169, 645922817, 897581057
+
+const int mod = ?;
+int modpow(int b, int e) {
+    int ans = 1;
+    for (; e; b = b * b % mod, e /= 2)
+        if (e & 1) ans = ans * b % mod;
+    return ans;
+}
+// Primitive Root of the mod of form 2^a * b + 1
+int generator () {
+    vector<int> fact;
+    int phi = mod-1, n = phi;
+    for (int i = 2;i*i <= n;i++) if (n % i == 0){
+        fact.push_back(i);
+        while (n % i == 0) n /= i;
+    }
+    if (n > 1) fact.push_back(n);
+ 
+    for(int res = 2;res <= mod;res++){
+        bool ok = true;
+        for (size_t i = 0; i < fact.size() and ok; i++)
+            ok &= modpow(res, phi / fact[i]) != 1;
+        if(ok) return res;
+    }
+    return -1;
+}
+
 struct NTT {
     static const int MOD = 998244353;
     static int pw(int a, int b) {
