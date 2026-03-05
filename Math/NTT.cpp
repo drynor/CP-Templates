@@ -1,5 +1,14 @@
-// NTT mods 998244353, 167772161, 469762049, 1224736769, 595591169, 645922817, 897581057
+// 1) Multiply two polynomials
+// 2) Raise a Polynomial to a power of n
+// 3) Multiply two big integers
+// 4) All pairs sums
+// 5) All subarrays sums
+// 6) All subsets sums
+// 7) Cyclic shift stuffs
+// 8) Counting & Probability
+// 9) String matching (Wild Cards & Hamming Distance)
 
+// NTT mods 998244353, 167772161, 469762049, 1224736769, 595591169, 645922817, 897581057
 const int mod = ?;
 int modpow(int b, int e) {
     int ans = 1;
