@@ -56,3 +56,46 @@ struct bitrie {
         return res;
     }
 };
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+const int N = 2e6;
+int ptr[N][2];
+int cnt[N];
+
+int pcnt = 1;
+
+struct bitTrie {
+    int root = 0;
+
+    void add(int x){
+        cnt[root]++;
+
+        int tmp = root;
+        for(int bit = 31;bit>=0;bit--){
+            if(ptr[tmp][(x >> bit) & 1] == -1){
+                ptr[tmp][(x >> bit) & 1] = pcnt++;
+            }
+            tmp = ptr[tmp][(x >> bit) & 1];
+            cnt[tmp]++;
+        }
+    }
+
+    int qry(int x){
+        if(cnt[root] == 0) return -1;
+
+        int tmp = root;
+        int xr = 0;
+        for(int bit = 31;bit>=0;bit--){
+            if(cnt[ptr[tmp][((x >> bit) & 1) ^ 1]] <= 0){
+                tmp = ptr[tmp][(x >> bit) & 1];
+                if((x >> bit) & 1) xr |= (1 << bit);
+            }
+            else{
+                tmp = ptr[tmp][((x >> bit) & 1) ^ 1];
+                if(((x >> bit) & 1) ^ 1) xr |= (1 << bit);
+            }
+        }
+
+        return x ^ xr;
+    }
+
+} bt;
