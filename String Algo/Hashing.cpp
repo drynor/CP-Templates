@@ -1,7 +1,9 @@
-int ms[] = {1073741987 , 1073743327 , 1073743427};
-int bs[] = {43, 47, 53, 59, 61};
+mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+#define getrand(l, r) uniform_int_distribution<int>(l, r)(rng)
 
-int b1 = bs[getrand(0, 1)], b2 = bs[getrand(2, 4)], mod = ms[getrand(0, 2)];
+int ms[] = {1000000007, 1000000009, 1000000021, 1000000033,1000000087, 1000000093,
+            1000000097, 1000000103, 1000000123, 1000000181, 1000000207, 1000000223};
+int b1 = getrand(200, 1e9), b2 = getrand(200, 1e9), mod = ms[getrand(0 , 11)];
 
 inline int add(int x,int y){return(x+=y)>=mod?x-mod:x;}
 inline int sub(int x,int y){return(x-=y)<0?x+mod:x;}
