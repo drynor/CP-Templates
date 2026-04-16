@@ -3,13 +3,13 @@ struct seg {
     seg(int tn){
         n = tn; t.resize(4 * n, 1e18);
     }
-    void upd(int s, int e, int i, int qi, int nw) {
+    void upd(int s, int e, int i, int qi, int v) {
         if (s == e) {
-            t[i] = nw; return;
+            t[i] = v; return;
         }
         int m = (s + e) / 2;
-        if(qi <= m) upd(s, m, 2 * i, qi, nw);
-        else        upd(m + 1, e, 2 * i + 1, qi, nw);
+        if(qi <= m) upd(s, m, 2 * i, qi, v);
+        else        upd(m + 1, e, 2 * i + 1, qi, v);
         t[i] = min(t[2 * i], t[2 * i + 1]);
     }
     int qry(int s, int e, int i, int l, int r) {
