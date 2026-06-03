@@ -1,0 +1,6 @@
+CPC-Notebook/generated/notebook.tex
+CPC-Notebook/generated/notebook.pdf
+CPC-Notebook/generated/*.aux
+CPC-Notebook/generated/*.log
+CPC-Notebook/generated/*.toc
+CPC-Notebook/generated/*.out

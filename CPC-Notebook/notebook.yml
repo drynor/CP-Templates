@@ -1,0 +1,293 @@
+{
+  "title": "CPC Competitive Programming Notebook",
+  "sections": [
+    {
+      "title": "Base / Utilities",
+      "directory": "sections/00_Base",
+      "items": [
+        {
+          "title": "Base Template",
+          "notes": "sections/00_Base/BaseTemplate.md",
+          "code": "sections/00_Base/BaseTemplate.cpp"
+        },
+        {
+          "title": "Debug Macro",
+          "notes": "sections/00_Base/DebugMacro.md",
+          "code": "sections/00_Base/DebugMacro.cpp"
+        },
+        {
+          "title": "Coordinate Compression",
+          "notes": "sections/00_Base/CoordinateCompression.md",
+          "code": "sections/00_Base/CoordinateCompression.cpp"
+        },
+        {
+          "title": "Custom Hash",
+          "notes": "sections/00_Base/CustomHash.md",
+          "code": "sections/00_Base/CustomHash.cpp"
+        }
+      ]
+    },
+    {
+      "title": "Data Structures",
+      "directory": "sections/01_DataStructures",
+      "items": [
+        {
+          "title": "Fenwick Tree / BIT",
+          "notes": "sections/01_DataStructures/FenwickTree.md",
+          "code": "sections/01_DataStructures/FenwickTree.cpp"
+        },
+        {
+          "title": "Disjoint Set Union",
+          "notes": "sections/01_DataStructures/DSU.md",
+          "code": "sections/01_DataStructures/DSU.cpp"
+        },
+        {
+          "title": "Segment Tree",
+          "notes": "sections/01_DataStructures/SegmentTree.md",
+          "code": "sections/01_DataStructures/SegmentTree.cpp"
+        },
+        {
+          "title": "Sparse Table",
+          "notes": "sections/01_DataStructures/SparseTable.md",
+          "code": "sections/01_DataStructures/SparseTable.cpp"
+        },
+        {
+          "title": "Ordered Set",
+          "notes": "sections/01_DataStructures/OrderedSet.md",
+          "code": "sections/01_DataStructures/OrderedSet.cpp"
+        },
+        {
+          "title": "Mo Algorithm",
+          "notes": "sections/01_DataStructures/MosAlgorithm.md",
+          "code": "sections/01_DataStructures/MosAlgorithm.cpp"
+        }
+      ]
+    },
+    {
+      "title": "Graph",
+      "directory": "sections/02_Graph",
+      "items": [
+        {
+          "title": "Dijkstra Shortest Path",
+          "notes": "sections/02_Graph/Dijkstra.md",
+          "code": "sections/02_Graph/Dijkstra.cpp"
+        },
+        {
+          "title": "0-1 BFS",
+          "notes": "sections/02_Graph/ZeroOneBFS.md",
+          "code": "sections/02_Graph/ZeroOneBFS.cpp"
+        },
+        {
+          "title": "Floyd Warshall",
+          "notes": "sections/02_Graph/FloydWarshall.md",
+          "code": "sections/02_Graph/FloydWarshall.cpp"
+        },
+        {
+          "title": "LCA Binary Lifting",
+          "notes": "sections/02_Graph/LCABinaryLifting.md",
+          "code": "sections/02_Graph/LCABinaryLifting.cpp"
+        },
+        {
+          "title": "Heavy-Light Decomposition",
+          "notes": "sections/02_Graph/HLD.md",
+          "code": "sections/02_Graph/HLD.cpp"
+        },
+        {
+          "title": "Bridges",
+          "notes": "sections/02_Graph/Bridges.md",
+          "code": "sections/02_Graph/Bridges.cpp"
+        },
+        {
+          "title": "Articulation Points",
+          "notes": "sections/02_Graph/ArticulationPoints.md",
+          "code": "sections/02_Graph/ArticulationPoints.cpp"
+        },
+        {
+          "title": "Strongly Connected Components",
+          "notes": "sections/02_Graph/SCC.md",
+          "code": "sections/02_Graph/SCC.cpp"
+        },
+        {
+          "title": "Topological Sort",
+          "notes": "sections/02_Graph/TopologicalSort.md",
+          "code": "sections/02_Graph/TopologicalSort.cpp"
+        },
+        {
+          "title": "2SAT",
+          "notes": "sections/02_Graph/TwoSAT.md",
+          "code": "sections/02_Graph/TwoSAT.cpp"
+        },
+        {
+          "title": "Dinic Max Flow",
+          "notes": "sections/02_Graph/Dinic.md",
+          "code": "sections/02_Graph/Dinic.cpp"
+        },
+        {
+          "title": "Min-Cost Max-Flow",
+          "notes": "sections/02_Graph/MinCostMaxFlow.md",
+          "code": "sections/02_Graph/MinCostMaxFlow.cpp"
+        },
+        {
+          "title": "Kruskal MST",
+          "notes": "sections/02_Graph/KruskalMST.md",
+          "code": "sections/02_Graph/KruskalMST.cpp"
+        }
+      ]
+    },
+    {
+      "title": "Dynamic Programming",
+      "directory": "sections/03_DynamicProgramming",
+      "items": [
+        {
+          "title": "SOS DP",
+          "notes": "sections/03_DynamicProgramming/SOSDP.md",
+          "code": "sections/03_DynamicProgramming/SOSDP.cpp"
+        },
+        {
+          "title": "Divide and Conquer DP",
+          "notes": "sections/03_DynamicProgramming/DivideConquerDP.md",
+          "code": "sections/03_DynamicProgramming/DivideConquerDP.cpp"
+        }
+      ]
+    },
+    {
+      "title": "Math",
+      "directory": "sections/04_Math",
+      "items": [
+        {
+          "title": "Number Theoretic Transform",
+          "notes": "sections/04_Math/NTT.md",
+          "code": "sections/04_Math/NTT.cpp"
+        },
+        {
+          "title": "Fast Fourier Transform",
+          "notes": "sections/04_Math/FFT.md",
+          "code": "sections/04_Math/FFT.cpp"
+        },
+        {
+          "title": "Fast Walsh-Hadamard Transform",
+          "notes": "sections/04_Math/FWHT.md",
+          "code": "sections/04_Math/FWHT.cpp"
+        },
+        {
+          "title": "XOR Basis",
+          "notes": "sections/04_Math/XorBasis.md",
+          "code": "sections/04_Math/XorBasis.cpp"
+        },
+        {
+          "title": "Modular Arithmetic / ModInt",
+          "notes": "sections/04_Math/ModInt.md",
+          "code": "sections/04_Math/ModInt.cpp"
+        },
+        {
+          "title": "Binary Exponentiation",
+          "notes": "sections/04_Math/BinaryExponentiation.md",
+          "code": "sections/04_Math/BinaryExponentiation.cpp"
+        },
+        {
+          "title": "Extended GCD",
+          "notes": "sections/04_Math/ExtendedGCD.md",
+          "code": "sections/04_Math/ExtendedGCD.cpp"
+        },
+        {
+          "title": "Chinese Remainder Theorem",
+          "notes": "sections/04_Math/CRT.md",
+          "code": "sections/04_Math/CRT.cpp"
+        },
+        {
+          "title": "nCr / Factorials",
+          "notes": "sections/04_Math/NCRFactorials.md",
+          "code": "sections/04_Math/NCRFactorials.cpp"
+        },
+        {
+          "title": "Sieve",
+          "notes": "sections/04_Math/Sieve.md",
+          "code": "sections/04_Math/Sieve.cpp"
+        },
+        {
+          "title": "Matrix Exponentiation",
+          "notes": "sections/04_Math/MatrixExponentiation.md",
+          "code": "sections/04_Math/MatrixExponentiation.cpp"
+        }
+      ]
+    },
+    {
+      "title": "Strings",
+      "directory": "sections/05_Strings",
+      "items": [
+        {
+          "title": "Suffix Automaton",
+          "notes": "sections/05_Strings/SuffixAutomaton.md",
+          "code": "sections/05_Strings/SuffixAutomaton.cpp"
+        },
+        {
+          "title": "Suffix Array",
+          "notes": "sections/05_Strings/SuffixArray.md",
+          "code": "sections/05_Strings/SuffixArray.cpp"
+        },
+        {
+          "title": "KMP Prefix Function",
+          "notes": "sections/05_Strings/KMP.md",
+          "code": "sections/05_Strings/KMP.cpp"
+        },
+        {
+          "title": "Z Function",
+          "notes": "sections/05_Strings/ZFunction.md",
+          "code": "sections/05_Strings/ZFunction.cpp"
+        },
+        {
+          "title": "String Hashing",
+          "notes": "sections/05_Strings/StringHashing.md",
+          "code": "sections/05_Strings/StringHashing.cpp"
+        },
+        {
+          "title": "Aho-Corasick",
+          "notes": "sections/05_Strings/AhoCorasick.md",
+          "code": "sections/05_Strings/AhoCorasick.cpp"
+        },
+        {
+          "title": "Manacher",
+          "notes": "sections/05_Strings/Manacher.md",
+          "code": "sections/05_Strings/Manacher.cpp"
+        }
+      ]
+    },
+    {
+      "title": "Geometry",
+      "directory": "sections/06_Geometry",
+      "items": [
+        {
+          "title": "Point Struct",
+          "notes": "sections/06_Geometry/PointStruct.md",
+          "code": "sections/06_Geometry/PointStruct.cpp"
+        },
+        {
+          "title": "Convex Hull",
+          "notes": "sections/06_Geometry/ConvexHull.md",
+          "code": "sections/06_Geometry/ConvexHull.cpp"
+        },
+        {
+          "title": "Segment Intersection",
+          "notes": "sections/06_Geometry/SegmentIntersection.md",
+          "code": "sections/06_Geometry/SegmentIntersection.cpp"
+        },
+        {
+          "title": "Polygon Area",
+          "notes": "sections/06_Geometry/PolygonArea.md",
+          "code": "sections/06_Geometry/PolygonArea.cpp"
+        }
+      ]
+    },
+    {
+      "title": "Misc",
+      "directory": "sections/07_Misc",
+      "items": [
+        {
+          "title": "Contest Checklist",
+          "notes": "sections/07_Misc/ContestChecklist.md",
+          "code": "sections/07_Misc/ContestChecklist.cpp"
+        }
+      ]
+    }
+  ]
+}
