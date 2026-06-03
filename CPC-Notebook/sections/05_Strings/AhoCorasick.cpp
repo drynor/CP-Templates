@@ -1,0 +1,61 @@
+/*
+Algorithm: Aho-Corasick
+When to use: Use for many patterns in one text, forbidden substring DP, and dictionary counting.
+Indexing: 0-indexed unless noted
+Complexity: See code and notes.
+Common bugs: Matches can occur through failure links.
+*/
+
+struct AC {
+    int N;
+    vector<vector<int>> next, g;
+    vector<int> link;
+    // vector<int> out_link, out; vector<string> str;
+    
+    AC() { N = 0; node(); }
+    
+    int node() {
+        next.emplace_back(26, 0);
+        link.emplace_back(0);
+
+        // out.emplace_back(-1);
+        // out_link.emplace_back(0);
+        // str.emplace_back("");
+        return N++;
+    }
+    
+    void add(string s, int id = 1) { 
+        int u = 0;
+        for (char c : s) {
+            int i = c - 'a';
+            if (!next[u][i]) {
+                next[u][i] = node(); 
+                // int v = node(); str[v] = str[u] + c; next[u][i] = v;
+            }
+            u = next[u][i];
+        } 
+        // out[u] = id;
+    }
+    
+    void compute() {
+        queue<int> q; q.push(0);
+        while (!q.empty()) {
+            int u = q.front(); q.pop();     
+            for (int c = 0; c < 26; c++) {
+                int v = next[u][c];
+                if (!v) {
+                    next[u][c] = next[link[u]][c];
+                } else {
+                    link[v] = (u ? next[link[u]][c] : 0);      
+                    //out_link[v] = (~out[link[v]]) ? link[v] : out_link[link[v]];     
+                    q.push(v);
+                }
+            }
+        } 
+        // g.resize(N); for (int i = 1; i < N; i++) g[link[i]].push_back(i);
+    }
+    
+    int adv(int u, char c) {
+        return next[u][c - 'a'];
+    }
+};
