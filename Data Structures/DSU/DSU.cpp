@@ -1,7 +1,6 @@
 struct dsu {
-    vector<int> p, sz;
     int n;
- 
+    vector<int> p, sz;
     dsu(int tn) : n(tn) {
         p.resize(n);
         sz.resize(n, 1);
@@ -11,12 +10,9 @@ struct dsu {
         return (x == p[x] ? x : (p[x] = get(p[x])));
     }
     inline bool unite(int x, int y) {
-        x = get(x);
-        y = get(y);
+        x = get(x); y = get(y);
         if (x != y) {
-            if (sz[x] < sz[y]) {
-                swap(x, y); 
-            }
+            if (sz[x] < sz[y]) swap(x, y); 
             p[y] = x;
             sz[x] += sz[y];
             return true;
