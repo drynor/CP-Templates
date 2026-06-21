@@ -1,7 +1,6 @@
 struct SQRT {
     int B;
-    vector<int> f;
-    vector<int> block;
+    vector<int> f, block;
 
     SQRT(const vector<int>& a) {
         int n = a.size();
