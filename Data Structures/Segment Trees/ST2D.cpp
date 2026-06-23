@@ -1,18 +1,15 @@
 struct seg {
-    int n, m;
+    int n, m, def = 0;
     vector<vector<int>> t;
-    int def() {
-        return 0;
-    }
     int merge(int a, int b) {
         return a + b;
     }
     seg(int tn, int tm){
         n = tn, m = tm;
-        t = vector<vector<int>>(2*n, vector<int>(2*m, def()));
+        t = vector<vector<int>>(2*n, vector<int>(2*m, def));
     }
     int qry(int x1, int y1, int x2, int y2) {
-        int ans = def();
+        int ans = def;
         int y3 = y1 + m, y4 = y2 + m;
         for (x1 += n, x2 += n; x1 <= x2; ++x1 /= 2, --x2 /= 2){
             for(y1 = y3, y2 = y4; y1 <= y2; ++y1 /= 2, --y2 /= 2){
