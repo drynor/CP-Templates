@@ -1,8 +1,6 @@
 struct seg {
     struct node {
-        int val, l, r, us;
-        bool lz;
- 
+        int val, l, r, us; bool lz;
         node() {
             val = us = lz = 0;
             l = r = -1;
@@ -40,8 +38,7 @@ struct seg {
     void upd(int s, int e, int i, int l, int r, int u) {
         if (i == -1 || e < l || s > r) return;
         if (l <= s && e <= r) {
-            apply(i, s, e, u);
-            return;
+            apply(i, s, e, u); return;
         }
         push(i, s, e);
  
@@ -67,6 +64,7 @@ struct seg {
             return t[i].val;
         }
         push(i, s, e);
+        
         int m = s + (e - s) / 2;
         return qry(s, m, t[i].l, l, r) + qry(m + 1, e, t[i].r, l, r);
     }
