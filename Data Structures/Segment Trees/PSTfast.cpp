@@ -1,56 +1,65 @@
-struct seg{
-    vector<int> L, R, sum, roots;
-    int sz;
-    seg(vector<int>& a){
+struct seg {
+    struct node {
+        int l, r, sum;
+        node() {
+            l = r = sum = 0;
+        }
+        node(int tl, int tr, int tsum) {
+            l = tl; r = tr; sum = tsum;
+        }
+    };
+
+    vector<node> t;
+    vector<int> roots;
+    int sz, ptr = 0;
+
+    seg(vector<int>& a, int n) {
         sz = a.size();
-        nw(0, 0, 0); 
+        t.resize(n);
+        nw(0, 0, 0); // node 0 = null node
         roots.pb(build(a, 0, sz - 1));
     }
-    int nw(int l, int r, int s) {
-        L.pb(l); R.pb(r); sum.pb(s);
-        return sum.size() - 1;
-    }
-    int cpy(int i) {
-        return nw(L[i], R[i], sum[i]);
-    }
-    int build(vector<int>& a, int tl, int tr) {
-        if (tl == tr) {
-            return nw(0, 0, a[tl]);
-        }
-        int tm = (tl + tr) >> 1;
-        int lc = build(a, tl, tm);
-        int rn = build(a, tm + 1, tr);
-        return nw(lc, rn, sum[lc] + sum[rn]);
+
+    int nw(int l, int r, int sum) {
+        t[ptr] = node(l, r, sum);
+        return ptr++;
     }
 
-    int upd(int v, int pos, int v) {
-        int root = upd(roots[v], 0, sz - 1, pos, v);
-        roots.pb(root);
+    int cpy(int i) { return nw(t[i].l, t[i].r, t[i].sum); }
+
+    int build(vector<int>& a, int s, int e) {
+        if (s == e) return nw(0, 0, a[s]);
+
+        int m = s + (e - s) / 2,
+            l = build(a, s, m),
+            r = build(a, m + 1, e);
+
+        return nw(l, r, t[l].sum + t[r].sum);
+    }
+
+    int upd(int s, int e, int i, int ind, int v) {
+        if (s == e) return nw(0, 0, v);
+
+        int nw = cpy(i), m = s + (e - s) / 2;
+
+        if (ind <= m) t[nw].l = upd(s, m, t[nw].l, ind, v);
+        else           t[nw].r = upd(m + 1, e, t[nw].r, ind, v);
+
+        t[nw].sum = t[t[nw].l].sum + t[t[nw].r].sum;
+        return nw;
+    }
+    int upd(int ver, int i, int v) {
+        int root = upd(0, sz - 1, roots[ver], i, v);
+        roots.push_back(root);
         return roots.size() - 1;
     }
-    int upd(int pn, int tl, int tr, int pos, int v) {
-        if (tl == tr) {
-            return nw(0, 0, v);
-        }
-        int cn = cpy(pn); 
-        int tm = (tl + tr) >> 1;
 
-        if (pos <= tm) L[cn] = upd(L[cn], tl, tm, pos, v);
-        else           R[cn] = upd(R[cn], tm + 1, tr, pos, v);
-        
-        sum[cn] = sum[L[cn]] + sum[R[cn]];
-        return cn;
+    int qry(int s, int e, int i, int l, int r) {
+        if (i == 0 || e < l || s > r) return 0;
+        if (l <= s && e <= r) return t[i].sum;
+
+        int m = s + (e - s) / 2;
+        return qry(s, m, t[i].l, l, r) + qry(m + 1, e, t[i].r, l, r);
     }
-
-    int qry(int v, int l, int r) {
-        return qry(roots[v], 0, sz - 1, l, r);
-    }
-
-    int qry(int u, int tl, int tr, int l, int r) {
-        if (l > r || tl > r || tr < l || !u) return 0;
-        if (l <= tl && tr <= r) return sum[u];
-
-        int tm = (tl + tr) >> 1;
-        return qry(L[u], tl, tm, l, r) + qry(R[u], tm + 1, tr, l, r);
-    }
+    int qry(int ver, int l, int r) { return qry(0, sz - 1, roots[ver], l, r); }
 };
