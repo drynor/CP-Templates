@@ -9,7 +9,7 @@ struct dsu {
     int get(int x) {
         return (x == p[x] ? x : (p[x] = get(p[x])));
     }
-    bool unite(int x, int y) {
+    void unite(int x, int y) {
         x = get(x); y = get(y);
         if (x != y) {
             if (sz[x] < sz[y]) swap(x, y); 
