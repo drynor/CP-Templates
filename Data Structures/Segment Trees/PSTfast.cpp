@@ -25,7 +25,9 @@ struct seg {
         return ptr++;
     }
 
-    int cpy(int i) { return nw(t[i].l, t[i].r, t[i].sum); }
+    int cpy(int i) { 
+        return nw(t[i].l, t[i].r, t[i].sum); 
+    }
 
     int build(vector<int>& a, int s, int e) {
         if (s == e) return nw(0, 0, a[s]);
@@ -48,11 +50,6 @@ struct seg {
         t[nw].sum = t[t[nw].l].sum + t[t[nw].r].sum;
         return nw;
     }
-    int upd(int ver, int i, int v) {
-        int root = upd(0, sz - 1, roots[ver], i, v);
-        roots.push_back(root);
-        return roots.size() - 1;
-    }
 
     int qry(int s, int e, int i, int l, int r) {
         if (i == 0 || e < l || s > r) return 0;
@@ -61,5 +58,12 @@ struct seg {
         int m = s + (e - s) / 2;
         return qry(s, m, t[i].l, l, r) + qry(m + 1, e, t[i].r, l, r);
     }
-    int qry(int ver, int l, int r) { return qry(0, sz - 1, roots[ver], l, r); }
+    int upd(int ver, int i, int v) {
+        int root = upd(0, sz - 1, roots[ver], i, v);
+        roots.push_back(root);
+        return roots.size() - 1;
+    }
+    int qry(int ver, int l, int r) {
+        return qry(0, sz - 1, roots[ver], l, r);
+    }
 };
