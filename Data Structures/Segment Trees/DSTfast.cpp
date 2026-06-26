@@ -30,9 +30,6 @@ struct seg {
             upd(m + 1, e, t[i].r, qi, v);
         }
     }
-    void upd(int ind, int v) {
-        upd(mn, mx, root, ind, v);
-    }
 
     int qry(int s, int e, int i, int l, int r) {
         if (i == -1 || e < l || s > r) return 0;
@@ -42,6 +39,11 @@ struct seg {
 
         return qry(s, m, t[i].l, l, r) + qry(m + 1, e, t[i].r, l, r);
     }
+    
+    void upd(int ind, int v) {
+        upd(mn, mx, root, ind, v);
+    }
+
     int qry(int l, int r) {
         return qry(mn, mx, root, l, r);
     }
