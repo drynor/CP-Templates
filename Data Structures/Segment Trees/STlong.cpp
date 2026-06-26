@@ -13,10 +13,6 @@ struct seg {
         else        upd(m + 1, e, 2 * i + 1, qi, u);
         t[i].merge(t[2 * i], t[2 * i + 1]);
     }
-    void upd(int i, int v) {
-        update nw = update(v);
-        upd(0, n - 1, 1, i, nw);
-    }
     node qry(int s, int e, int i, int l, int r) {
         if (s > r || e < l) return node();
         if (s >= l && e <= r) return t[i];
@@ -26,6 +22,10 @@ struct seg {
         rn = qry(m + 1, e, 2 * i + 1, l, r);
         ans.merge(ln, rn);
         return ans;
+    }
+    void upd(int i, int v) {
+        update nw = update(v);
+        upd(0, n - 1, 1, i, nw);
     }
     node qry(int l, int r) {
         return qry(0, n - 1, 1, l, r);
