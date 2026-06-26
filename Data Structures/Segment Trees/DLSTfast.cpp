@@ -66,6 +66,10 @@ struct seg {
         return qry(s, m, t[i].l, l, r) + qry(m + 1, e, t[i].r, l, r);
     }
 
-    void upd(int l, int r, int u) { upd(mn, mx, root, l, r, u); }
-    int qry(int l, int r) { return qry(mn, mx, root, l, r); }
+    void upd(int l, int r, int u) { 
+        upd(mn, mx, root, l, r, u); 
+    }
+    int qry(int l, int r) { 
+        return qry(mn, mx, root, l, r); 
+    }
 };
