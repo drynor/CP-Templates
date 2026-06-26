@@ -54,10 +54,7 @@ struct seg {
  
         t[i].val = (t[i].l == -1 ? 0 : t[t[i].l].val) + (t[i].r == -1 ? 0 : t[t[i].r].val);
     }
-    void upd(int l, int r, int u) {
-        upd(mn, mx, root, l, r, u);
-    }
- 
+    
     int qry(int s, int e, int i, int l, int r) {
         if (i == -1 || e < l || s > r) return 0;
         if (l <= s && e <= r) {
@@ -68,7 +65,7 @@ struct seg {
         int m = s + (e - s) / 2;
         return qry(s, m, t[i].l, l, r) + qry(m + 1, e, t[i].r, l, r);
     }
-    int qry(int l, int r) {
-        return qry(mn, mx, root, l, r);
-    }
+
+    void upd(int l, int r, int u) { upd(mn, mx, root, l, r, u); }
+    int qry(int l, int r) { return qry(mn, mx, root, l, r); }
 };
