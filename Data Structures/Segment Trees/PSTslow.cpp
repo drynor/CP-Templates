@@ -26,11 +26,6 @@ struct seg {
         return new node(build(a, tl, tm), build(a, tm + 1, tr));
     }
 
-    int upd(int ver, int pos, int val) {
-        node* root = upd(roots[ver], 0, sz - 1, pos, val);
-        roots.pb(root);
-        return roots.size() - 1;
-    }
     node* upd(node* pn, int tl, int tr, int pos, int val) {
         if(tl == tr) return new node(val);
 
@@ -42,14 +37,21 @@ struct seg {
         }
     }
 
-    int qry(int ver, int l, int r) {
-        return qry(roots[ver], 0, sz - 1, l, r);
-    }
     int qry(node* cn, int tl, int tr, int l, int r) {
         if (tl > r || tr < l || !cn) return 0;
         if (tl >= l && tr <= r)        return cn->sum;
         
         int tm = tl + (tr - tl) / 2;
         return qry(cn->left, tl, tm, l, r) + qry(cn->right, tm + 1, tr, l, r);
+    }
+
+    int upd(int ver, int pos, int val) {
+        node* root = upd(roots[ver], 0, sz - 1, pos, val);
+        roots.pb(root);
+        return roots.size() - 1;
+    }
+
+    int qry(int ver, int l, int r) {
+        return qry(roots[ver], 0, sz - 1, l, r);
     }
 };
