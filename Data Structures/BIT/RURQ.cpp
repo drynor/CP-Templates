@@ -12,7 +12,7 @@ struct BIT {
             b[idx] += val;
     }
     int qry(vector<int>& b, int idx) {
-        T v = 0;
+        int v = 0;
         for (; idx > 0; idx -= idx & -idx)
             v += b[idx];
         return v;
