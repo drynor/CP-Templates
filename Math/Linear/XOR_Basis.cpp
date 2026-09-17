@@ -13,7 +13,7 @@ struct basis {
     }
     void clear(){
         memset(b , 0 , sizeof(b));
-        cnt = 0;  
+        cnt = 0;
     }
     int reduce(int x){
         if(x == 0) return 0;
@@ -27,8 +27,8 @@ struct basis {
     bool add(int x){
         x = reduce(x);
         if(x == 0) return false;
-        b[31 - __builtin_clz(x)] = x;
-        cnt++;  
+        b[__lg(x)] = x;
+        cnt++;
         return true;
     }
     void combine(basis &b2){
