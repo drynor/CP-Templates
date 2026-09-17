@@ -1,54 +1,27 @@
-struct node { 
-    vector<int> v; 
-    node() {}; 
-    node(int x) : v({x}) {}; 
-};
-struct mst{ 
-    vector<node> t; 
-    int sz; 
-    mst(int tn) { 
-        sz = 1; 
-        while (sz < tn) sz <<= 1; 
-        t.assign(sz * 2, node()); 
-    } 
-    node merge(node &l, node &r) { 
-        node res; 
-        int i = 0, j = 0; 
-        while (i < l.v.size() && j < r.v.size()) { 
-            if (l.v[i] < r.v[j]) res.v.push_back(l.v[i++]); 
-            else res.v.push_back(r.v[j++]); 
-        } 
-        while (i < l.v.size()) res.v.push_back(l.v[i++]); 
-        while (j < r.v.size()) res.v.push_back(r.v[j++]); 
-        return res; 
-    } 
-    void build(vector<int> &v, int x, int lx, int rx) { 
-        if (rx - lx == 1) {
-            if (lx < v.size()) t[x] = node(v[lx]); 
-            return; 
-        } 
-        build(v, (x * 2 + 1), lx, (lx + rx) / 2); 
-        build(v, (x * 2 + 2), (lx + rx) / 2, rx); 
-        t[x] = merge(t[(x * 2 + 1)], t[(x * 2 + 2)]); 
-    } 
-    int query(int l, int r, int x, int lx, int rx, int val) { 
-        if (rx <= l || lx >= r) return 0; 
-        if (lx >= l && rx <= r) return calc(t[x], val); 
-        return query(l, r, (x * 2 + 1), lx, (lx + rx) / 2, val) + query(l, r, (x * 2 + 2), (lx + rx) / 2, rx, val); 
-    } 
-    int query(int l, int r, int val) {
-        return query(l, r, 0, 0, sz, val); 
+// merge sort tree: count of elements <, ==, > val in a[l..r]. 0-based inclusive [l, r].
+// 2n-1 nodes: root 0, left = i + 1, right = i + 2 * (m - s + 1). build O(n log n), qry O(log^2 n)
+struct mst {
+    int n;
+    vector<vector<int>> t;
+    mst(vector<int>& a) : n(a.size()), t(2 * n) { build(0, n - 1, 0, a); }
+
+    void build(int s, int e, int i, vector<int>& a) {
+        if (s == e) { t[i] = {a[s]}; return; }
+        int m = (s + e) / 2, l = i + 1, r = i + 2 * (m - s + 1);
+        build(s, m, l, a); build(m + 1, e, r, a);
+        t[i].resize(t[l].size() + t[r].size());
+        merge(ALL(t[l]), ALL(t[r]), t[i].begin());
     }
-    int calc(node &no, int val) { 
-        return greater_than(no, val); 
+    int qry(int s, int e, int i, int l, int r, int val) {
+        if (e < l || s > r) return 0;
+        if (l <= s && e <= r) return calc(t[i], val);
+        int m = (s + e) / 2;
+        return qry(s, m, i + 1, l, r, val) + qry(m + 1, e, i + 2 * (m - s + 1), l, r, val);
     }
-    int less_than(node &no, int val) {
-        return lower_bound(no.v.begin(), no.v.end(), val) - no.v.begin(); 
-    } 
-    int greater_than(node &no, int val) { 
-        return no.v.size() - less_than(no, val) - equal(no, val); 
-    } 
-    int equal(node &no, int val) { 
-        return upper_bound(no.v.begin(), no.v.end(), val) - lower_bound(no.v.begin(), no.v.end(), val); 
-    } 
+    int qry(int l, int r, int val) { return qry(0, n - 1, 0, l, r, val); }
+
+    int calc(vector<int>& v, int val) { return greater_than(v, val); }   // pick which one qry answers
+    int less_than(vector<int>& v, int val)    { return lower_bound(ALL(v), val) - v.begin(); }
+    int greater_than(vector<int>& v, int val) { return v.end() - upper_bound(ALL(v), val); }
+    int equal(vector<int>& v, int val)        { return upper_bound(ALL(v), val) - lower_bound(ALL(v), val); }
 };
