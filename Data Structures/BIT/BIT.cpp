@@ -1,3 +1,4 @@
+// ================= PURQ: point update, range sum =================
 template <class T> struct BIT {
     int n;
     vector<T> bit;
@@ -16,8 +17,16 @@ template <class T> struct BIT {
     void upd(int j, T v) {
         for (int i = j + 1; i < n; i += (i & -i)) bit[i] += v;
     }
+    // smallest i (0-indexed) with prefix sum qry(i) >= k; returns sz if none. needs all values >= 0
+    int kth(T k) {
+        int pos = 0;
+        for (int pw = 1 << __lg(n); pw; pw >>= 1)
+            if (pos + pw < n && bit[pos + pw] < k) pos += pw, k -= bit[pos];
+        return pos; // internal 1-based pos+1 -> external 0-based pos
+    }
 };
 
+// ================= RUPQ: range add, point query ===================
 template <class T> struct BIT {
     int n;
     vector<T> bit;
@@ -40,6 +49,7 @@ template <class T> struct BIT {
     }
 };
 
+// ================= RURQ: range add, range sum =====================
 template <class T> struct BIT {
     int n;
     vector<T> bit1, bit2;
