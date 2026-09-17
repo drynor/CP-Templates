@@ -76,7 +76,7 @@ struct treap {
         if(!r) {
             t = l; return;
         }
-        t->sum = (l->sum ^ r->sum);
+        t->sum = (l->sum + r->sum);
     }
 
     void operation(pnode &t) {
